@@ -18,9 +18,9 @@ class Book implements Serializable {
 
     @Override
     public String toString() {
-        return "Book ID: " + bookId + ", Title: " + bookName + ", Author: " + authorName 
-               + ", Published Year: " + publishedYear + ", Status: "
-               + (isIssued ? "Issued" : "Available");
+        return "Book ID: " + bookId + ", Title: " + bookName + ", Author: " + authorName
+                + ", Published Year: " + publishedYear + ", Status: "
+                + (isIssued ? "Issued" : "Available");
     }
 }
 
@@ -37,7 +37,7 @@ class Library {
             addBook(new Book("B001", "Java Programming", "James Gosling", 2005));
             addBook(new Book("B002", "Effective Java", "Joshua Bloch", 2008));
             addBook(new Book("B003", "Clean Code", "Robert C. Martin", 2008));
-            saveLibraryData();  // Save the pre-loaded books
+            saveLibraryData(); // Save the pre-loaded books
             System.out.println("Pre-loaded default books into the library.");
         }
     }
@@ -61,13 +61,15 @@ class Library {
             System.out.println("No books available in the library.");
         } else {
             // Print the headers
-            System.out.printf("%-10s %-30s %-20s %-15s %-20s%n", "Book ID", "Title", "Author", "Published Year", "Status");
-            System.out.println("------------------------------------------------------------------------------------------------");
-            
+            System.out.printf("%-10s %-30s %-20s %-15s %-20s%n", "Book ID", "Title", "Author", "Published Year",
+                    "Status");
+            System.out.println(
+                    "------------------------------------------------------------------------------------------------");
+
             // Print each book's details in a formatted way
             for (Book book : books) {
-                System.out.printf("%-10s %-30s %-20s %-15d %-10s%n", book.bookId, book.bookName, book.authorName, 
-                    book.publishedYear, book.isIssued ? "Issued" : "Available");
+                System.out.printf("%-10s %-30s %-20s %-15d %-10s%n", book.bookId, book.bookName, book.authorName,
+                        book.publishedYear, book.isIssued ? "Issued" : "Available");
             }
         }
     }
@@ -151,10 +153,29 @@ class Library {
     }
 }
 
-// Main class with menu-driven program
+// Main class with menu-driven program and authentication
 public class LibraryManagementSystem {
+    private static final String DEFAULT_USERNAME = "admin";
+    private static final String DEFAULT_PASSWORD = "password";
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+
+        // Authentication
+        System.out.println("=== Library Management System Login ===");
+        System.out.print("Enter Username: ");
+        String username = scanner.nextLine().trim();
+        System.out.print("Enter Password: ");
+        String password = scanner.nextLine().trim();
+
+        if (!DEFAULT_USERNAME.equals(username) || !DEFAULT_PASSWORD.equals(password)) {
+            System.out.println("Invalid credentials. Access denied.");
+            scanner.close();
+            return;
+        }
+        
+        System.out.println("Access granted. Welcome to the Library Management System!");
+
         Library library = new Library();
 
         while (true) {
